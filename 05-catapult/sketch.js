@@ -38,26 +38,43 @@ function draw() {
 /////////////////////////////////////////////////////////////
 function setupCatapult() {
   // your code here
-  catapult = Bodies.rectangle(500, 100, 100, 20, { isStatic: true })
-  // catapultSpacer = Bodies.rectangle(100, 100, 20, 20, { isStatic: true })
+  catapult = Bodies.rectangle(width / 2, height - 100, 500, 20)
+  catapultSpacer = Bodies.rectangle(width / 2 - 230, height - 50, 20, 80, {
+    isStatic: true,
+  })
   constraint = Constraint.create({
-    pointA: { x: width / 2, y: height - 20 },
-    bodyB: catapult,
+    bodyA: catapult,
+    pointB: { x: width / 2, y: height - 100 },
+    length: 0,
+    stiffness: 1,
   })
 
-  World.add(engine.world, [catapult])
+  World.add(engine.world, [catapult, constraint, catapultSpacer])
 }
 /////////////////////////////////////////////////////////////
 function drawCatapult() {
   // your code here
+  fill(255)
+  drawVertices(catapult.vertices)
+  fill(255, 0, 0)
+  drawVertices(catapultSpacer.vertices)
 }
 /////////////////////////////////////////////////////////////
 function setupBalls() {
   // your code here
+  ball1 = Bodies.circle(width / 2 - 200, height - 120, 10, {})
+  ball2 = Bodies.circle(width / 2 + 200, height - 500, 10 * 2, {
+    density: 1,
+  })
+  World.add(engine.world, [ball1, ball2])
 }
 /////////////////////////////////////////////////////////////
 function drawBalls() {
   // your code here
+  fill(255)
+  drawVertices(ball1.vertices)
+  fill(0, 255, 0)
+  drawVertices(ball2.vertices)
 }
 /////////////////////////////////////////////////////////////
 function setupGround() {
